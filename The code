@@ -1,0 +1,63 @@
+#men = ["A", "B", "C", "D"]
+#women = ["W", "X", "Y", "Z"]
+men = [1, 2, 3, 4]
+women = [5, 6, 7, 8]
+
+men_prefs = [[6, 5, 8, 7],  # A's preferences
+             [6, 5, 8, 7],  # B's preferences
+             [6, 5, 8, 7],  # C's preferences
+             [6, 5, 8, 7]]  # D's preferences
+
+women_prefs = [[2, 1, 3, 4],  # W's preferences
+               [3, 1, 4, 2],  # X's preferences
+               [3, 2, 4, 1],  # Y's preferences
+               [1, 3, 2, 4]]  # Z's preferences
+menwith = [[],[],[],[]]
+womenwith = [[],[],[],[]]
+dic = {1:"A",2:"B",3:"C",4:"D",5:"W",6:"X",7:"Y",8:"Z"}
+while True:
+    d = 0
+    for i in range(4):
+        q = -1
+        r = 0
+        while r != 1:
+            if q >= 3:
+                break
+            q += 1
+            menn = int(men[i])
+            menwant = int(men_prefs[i][q])
+            menwant_5 = menwant -5
+            if len(womenwith[menwant_5]) != 1:
+                menwith[i].append(menwant)
+                womenwith[menwant_5].append(menn)
+            elif women_prefs[menwant_5].index(menn) < women_prefs[menwant_5].index(womenwith[menwant_5][0]):
+                if len(menwith[i]) >= 1:
+                    menwith[i] = []
+                    menwith[i].append(menwant)
+                else:
+                    menwith[i].append(menwant)
+                toremove = int(womenwith[menwant_5][0]) - 1
+                menwith[toremove] = []
+                womenwith[menwant_5][0] = menn
+            r = len(str(menwith[i])) - 2
+    for i in range(4):
+        try:
+            tt = menwith[i][0]
+            if len(str(tt)) == 1:
+                d += 1
+        except:
+            pass
+    for ww in range(4):
+        try:
+            xx = menwith[ww][0]
+            if len(str(xx)) == 1:
+                d += 1
+        except:
+            pass
+    if d >= 8:
+        break
+for aa  in range(1,5):
+    mymen = dic[aa]
+    womenn = int(menwith[aa - 1][0])
+    womennn = dic[womenn]
+    print(str(mymen) + " merrid to " + str(womennn))
